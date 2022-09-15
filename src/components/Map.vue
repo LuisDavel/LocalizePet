@@ -20,15 +20,6 @@ export default {
             long: 0
         }
     },
-     computed:{
-        lat(){
-            return this.lat
-        },
-        long(){
-            return this.long
-        }
-     }
-     ,
     methods:{
         onLoad:function(){
             if (navigator.geolocation) {
@@ -48,6 +39,7 @@ export default {
     },
     mounted() {
         this.onLoad()
+
         console.log(parseInt(this.lat) + " vv")
         //this.showPosition()
 
