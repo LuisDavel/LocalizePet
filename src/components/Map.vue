@@ -58,7 +58,6 @@ export default {
         this.long = data.coords.longitude
 
         //onsole.log(`More or less ${this.options.enableHighAccuracy} meters.`)
-
         const circleFeature = new Feature({
             geometry: new Circle([data.coords.longitude, data.coords.latitude], 0.001)
         });
@@ -113,9 +112,7 @@ export default {
             layers: [
                 new TileLayer({
                     source: new OSM({
-                        attributions: null,
-                        controls: []
-                        
+                        attributions: null,                        
                     }),
                 }),
                 new VectorLayer({
