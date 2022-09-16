@@ -110,8 +110,11 @@ export default {
 
         this.map = new Map({
             layers: [
+                controls: [],
                 new TileLayer({
-                    source: new OSM(),
+                    source: new OSM({
+                         attributions: null,
+                    }),
                     visible: true
                 }),
                 new VectorLayer({
