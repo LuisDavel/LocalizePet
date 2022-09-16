@@ -42,19 +42,19 @@ export default {
                     resolve(pos)
                 }, err => {
                     this.errorStr = err.message
-                    if (this.errorStr == 'User denied Geolocation'){
+                    if (this.errorStr == 'User denied Geolocation') {
                         window.alert('Favor ligar a localização')
                     }
-                }, 
-                this.options)
+                },
+                    this.options)
             })
         },
     },
     async mounted() {
-        
+
         let data = await this.onLoad()
 
-        this.lat =  data.coords.latitude
+        this.lat = data.coords.latitude
         this.long = data.coords.longitude
 
         //onsole.log(`More or less ${this.options.enableHighAccuracy} meters.`)
@@ -109,10 +109,14 @@ export default {
         );
 
         this.map = new Map({
+            controls: [],
             layers: [
                 new TileLayer({
-                    source: new OSM(),
-                    visible: true
+                    source: new OSM({
+                        attributions: null,
+                        controls: []
+                        
+                    }),
                 }),
                 new VectorLayer({
                     source: new VectorSource({
