@@ -111,12 +111,16 @@ export default {
         this.map = new Map({
             controls: [],
             layers: [
+                controls: [],
                 new TileLayer({
                     source: new OSM({
                         attributions: null,
                         controls: []
                         
                     }),
+                         attributions: null,
+                    }),
+                    visible: true
                 }),
                 new VectorLayer({
                     source: new VectorSource({
