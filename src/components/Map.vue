@@ -14,20 +14,40 @@ import { Tile as TileLayer, Vector as VectorLayer } from "ol/layer";
 
 export default {
     name: 'Map',
+    data: function () {
+        return {
+            errorStr: null,
+            options: {
+                enableHighAccuracy: true,
+                timeout: 2000,
+                maximumAge: 0
+            }
+        }
+    },
     methods: {
         async onLoad() {
-            return new Promise((resolve, reject) => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.watchPosition(pos => {
-                        resolve(pos)
-                    })
+            return new Promise((resolve) => {
+                if (!(navigator.geolocation)) {
+                    this.errorStr = 'Geolocation is not available.';
+                    return;
                 }
+                navigator.geolocation.watchPosition(pos => {
+                    resolve(pos)
+                }, err => {
+                    this.errorStr = err.message
+                    if (this.errorStr == 'User denied Geolocation'){
+                        window.alert('Favor ligar a localização')
+                    }
+                }, 
+                this.options)
             })
         },
     },
     async mounted() {
         let data = await this.onLoad()
-        
+
+        //onsole.log(`More or less ${this.options.enableHighAccuracy} meters.`)
+
         const circleFeature = new Feature({
             geometry: new Circle([data.coords.longitude, data.coords.latitude], 0.001)
         });
@@ -92,7 +112,7 @@ export default {
             target: "map",
             view: new View({
                 center: [data.coords.longitude, data.coords.latitude],
-                zoom: 21,
+                zoom: 17,
                 projection: "EPSG:4326"
             })
         })
