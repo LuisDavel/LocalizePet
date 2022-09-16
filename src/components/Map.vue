@@ -18,7 +18,7 @@ export default {
         async onLoad() {
             return new Promise((resolve, reject) => {
                 if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(pos => {
+                    navigator.geolocation.watchPosition(pos => {
                         resolve(pos)
                     })
                 }
@@ -92,7 +92,7 @@ export default {
             target: "map",
             view: new View({
                 center: [data.coords.longitude, data.coords.latitude],
-                zoom: 17,
+                zoom: 21,
                 projection: "EPSG:4326"
             })
         })
