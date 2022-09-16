@@ -1,6 +1,11 @@
 <template>
     <div id="map">
     </div>
+
+    <div>
+        <p> {{this.lat}}</p>
+        <p> {{this.long}}</p>
+    </div>
 </template>
 <script>
 
@@ -21,7 +26,9 @@ export default {
                 enableHighAccuracy: true,
                 timeout: 2000,
                 maximumAge: 0
-            }
+            },
+            lat: 0,
+            long: 0,
         }
     },
     methods: {
@@ -44,7 +51,11 @@ export default {
         },
     },
     async mounted() {
+        
         let data = await this.onLoad()
+
+        this.lat =  data.coords.latitude
+        this.long = data.coords.longitude
 
         //onsole.log(`More or less ${this.options.enableHighAccuracy} meters.`)
 
